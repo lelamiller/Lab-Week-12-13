@@ -10,7 +10,7 @@ arrival_rates <- function(citibike){
     mutate(day = date(start_time)) %>%
     filter(customer_type != "None") %>%
     group_by(start_station, end_station, hour) %>%
-    summarize(n = n()/n_distinct(day)) 
+    summarize(x_hat = n()/n_distinct(day)) 
   
   return(citibike)
 }
