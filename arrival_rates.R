@@ -5,7 +5,7 @@
 library(tidyverse)
 data <- read.csv("/Users/lelamiller/Downloads/sample_bike.csv")
 
-estimate_arrival_rates <- function(data) {
+arrival_rates <- function(data) {
   
   # compute the average number of trips per hour between each pair
   x_hat <- data %>%
@@ -64,7 +64,7 @@ estimate_arrival_rates <- function(data) {
 bike_data <- read_csv("~/Desktop/PHP1560/Data/sample_bike.csv")
 
 # Estimate arrival rates
-arrival_rates <- estimate_arrival_rates(bike_data)
+arrival_rates <- arrival_rates(bike_data)
 
 # View the results
 print(arrival_rates, n = 10)
