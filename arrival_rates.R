@@ -16,6 +16,6 @@ arrival_rates <- function(citibike){
 }
 
 citibike2 <- read.csv("/Users/lelamiller/Downloads/sample_bike.csv")
-citibike2 <- arrival_rates(citibike2)
+arrival_rates_result <- arrival_rates(citibike2)
 
 
