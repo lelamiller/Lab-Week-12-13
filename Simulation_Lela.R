@@ -1,0 +1,1 @@
+citibike2 <- read.csv("/Users/lelamiller/Downloads/sample_bike.csv")

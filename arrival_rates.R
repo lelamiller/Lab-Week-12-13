@@ -17,5 +17,5 @@ arrival_rates <- function(citibike){
 
 citibike2 <- read.csv("/Users/lelamiller/Downloads/sample_bike.csv")
 arrival_rates_result <- arrival_rates(citibike2)
-
+write.csv(arrival_rates_result, "arrival_rates_result.csv", row.names=FALSE)
 
