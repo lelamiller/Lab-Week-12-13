@@ -18,10 +18,8 @@ simulate_one_day <- function(arrival_rates_result){
 #vectors of the stations that we will loop through 
   starts <- df_station_pair$start_station
   ends <- df_station_pair$end_station
-  
-  all_trips <- tibble()
 
-all_sim_data <- data_frame()
+all_sim_data <- tibble()
 #start a for loop for the unique pairs of stations
   for (s in starts) {
     for (e in ends) {
@@ -35,8 +33,7 @@ all_sim_data <- data_frame()
 
 #initialize the time  
       t <- 0
-      arrivals <- 0
-      simulation_data <- data_frame()
+      hourly_arrivals <- rep(0,24)
 
 #start a while loop for t, our total time, making sure it is always less than 24
       while(t<24){
@@ -44,27 +41,25 @@ all_sim_data <- data_frame()
         if (t >=24) break
         
         hour <- floor(t)
-        arrivals <- arrivals + 1
-        
-        #storing the hour, arrivals during an hour, and the start station and end station
-        simulation_data[(hour + 1) , 1] <- hour
-        simulation_data[(hour + 1) , 2] <- arrivals
-        simulation_data[(hour + 1) , 3] <- s
-        simulation_data[(hour + 1) , 4] <- e
-        
-    
+
+      #ADD IN THINNING?
+
+      #storing the arrivals for each hour in a vector of hourly arrivals
+       hourly_arrivals[hour+1] <- hourly_arrivals[hour + 1] + 1
       }
-      return(simulation_data)
-all_sim_data <- rbind(all_sim_data, simulation_data)
+      pair_data <- tibble(
+        hour = which(hourly_arrivals > 0) - 1,
+        arrivals = hourly_arrivals[hourly_arrivals > 0],
+        start_station = s,
+        end_station = e)
+
+      all_sim_data <- bind_rows(all_sim_data, pair_data)
     }
   }
-  
-return(all_sim_data)
 
-#THINNING
+return(all_sim_data)
 
 }
 
-#test first part of function on a small sample of the data
-arrivals_subset <- slice(arrival_rates_result, c(1:40))
-simulate_one_day(arrivals_subset)
+simulate_one_day(arrival_rates_result)
+
