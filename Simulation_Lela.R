@@ -20,7 +20,8 @@ simulate_one_day <- function(arrival_rates_result){
   ends <- df_station_pair$end_station
   
   all_trips <- tibble()
-  
+
+all_sim_data <- data_frame()
 #start a for loop for the unique pairs of stations
   for (s in starts) {
     for (e in ends) {
@@ -45,18 +46,25 @@ simulate_one_day <- function(arrival_rates_result){
         hour <- floor(t)
         arrivals <- arrivals + 1
         
+        #storing the hour, arrivals during an hour, and the start station and end station
         simulation_data[(hour + 1) , 1] <- hour
         simulation_data[(hour + 1) , 2] <- arrivals
         simulation_data[(hour + 1) , 3] <- s
         simulation_data[(hour + 1) , 4] <- e
         
-        return(simulation_data)
+    
       }
-      
-      
-     
+      return(simulation_data)
+all_sim_data <- rbind(all_sim_data, simulation_data)
     }
   }
+  
+return(all_sim_data)
+
+#THINNING
+
 }
 
-
+#test first part of function on a small sample of the data
+arrivals_subset <- slice(arrival_rates_result, c(1:40))
+simulate_one_day(arrivals_subset)
