@@ -1,93 +1,58 @@
-#' @description simulates an example day
-#' @param data data frame with the start station, end station, hour and average rate of arrival for each trip across all days. 
+#' @description simulates an example day of arrivals throughout the day
+#' @param arrival_rates_result data frame with the start station, end station, hour and average rate of arrival for each trip across all days. 
 #' @return data frame of a simulated day: origin, destination, hour
-#
+
 library(tidyverse)
+
 #read in the arrival rates data
 arrival_rates_result <- read.csv("/Users/lelamiller/arrival_rates_result.csv")
 
+
+#START THE FUNCTION!!!
 simulate_one_day <- function(arrival_rates_result){
 
 #identify the unique pairs of stations
-  df_station_pair <- arrival_rates_results %>%
+  df_station_pair <- arrival_rates_result %>%
     group_by(start_station, end_station) %>%
     summarize()
-  
-  starts <- unique(arrival_rates_result$start_station)
-  ends <- unique(arrival_rates_result$end_station)
+
+#vectors of the stations that we will loop through 
+  starts <- df_station_pair$start_station
+  ends <- df_station_pair$end_station
   
   all_trips <- tibble()
+  
 #start a for loop for the unique pairs of stations
   for (s in starts) {
     for (e in ends) {
-      
-      df_station_pair <- arrival_rates_result %>%
+
+#find lambda max for the unique station pair   
+      station_pair <- arrival_rates_result %>%
         filter(start_station == s,
                end_station == e)
       
-      lambda_max <- max(df_station_pair$x_hat)
-      
+      lambda_max <- max(station_pair$x_hat)
+
+#initialize the time  
       t <- 0
-      out <- tibble()
-      
+      arrivals <- 0
+      simulation_data <- tibble()
+
+#start a while loop for t, our total time, making sure it is always less than 24
       while(t<24){
-        t <- t + rexp(1, rate= lambda_max)
+        t <- t + rexp(1, rate = lambda_max)
         if (t >=24) break
-        
+      
         hour <- floor(t)
-        lambda_t <- df_station_pair
+        arrivals <- arrivals + 1
+        
+        simulation_data <- (c(hour, arrivals))
+
       }
       
-      
-      trips <- simulate_od_pair(df_od)
-      
-      all_trips <- bind_rows(all_trips, trips)
+     
     }
   }
 }
 
-
-#call that function for every pair of stations
-
-
-
-#then 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#Find lambda max- the maximum arrival rate in an hour in a given day
-lambda_max_df <- arrival_rates_result %>%
-  group_by(start_station, end_station) %>%
-  summarize(lambda_max = max(x_hat)) 
-
-lambda_max_vector <- as.vector(lambda_max_df$lambda_max)
-
-for(i in 1:2362){
-timeofday = 0 
-hour = 1
-arrivals <- c()
-arrivaln = 0
-for(i in 1:2)
-while(timeofday < 24){
-  for(hour in 1:24){
-    if(timeofday < hour){
-      arrivaln <- arrivaln + 1
-      arrivals[hour] <- arrivaln
-      timeofday <- timeofday + rexp(1, lambda_max_vector[i])
-    }  
-    }
-}
-}
 
