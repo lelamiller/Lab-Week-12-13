@@ -7,7 +7,6 @@ library(tidyverse)
 #read in the arrival rates data
 arrival_rates_result <- read.csv("/Users/lelamiller/arrival_rates_result.csv")
 
-
 #START THE FUNCTION!!!
 simulate_one_day <- function(arrival_rates_result){
 
@@ -36,7 +35,7 @@ simulate_one_day <- function(arrival_rates_result){
 #initialize the time  
       t <- 0
       arrivals <- 0
-      simulation_data <- tibble()
+      simulation_data <- data_frame(nrow = 24, ncol = 4)
 
 #start a while loop for t, our total time, making sure it is always less than 24
       while(t<24){
@@ -46,7 +45,7 @@ simulate_one_day <- function(arrival_rates_result){
         hour <- floor(t)
         arrivals <- arrivals + 1
         
-        simulation_data <- (c(hour, arrivals))
+        simulation_data[hour] <- (c(hour, arrivals))
 
       }
       
