@@ -28,7 +28,7 @@ simulate_one_day <- function(arrival_rates_result){
   
   #vectors of the stations that we will loop through 
   #start a for loop for the unique pairs of stations
-for (i in 1:nrow(df_station_pair)) {
+  for (i in 1:nrow(df_station_pair)) {
     
     #find lambda max for the unique station pair   
     start <- df_station_pair$start_station[i]
@@ -58,12 +58,12 @@ for (i in 1:nrow(df_station_pair)) {
       
       #ADD IN THINNING?
       
-      if(rbinom(1, 1, lambdas[hour +1]/lambda_max) ==1){
+      if(rbinom(1, 1, lambdas[floor(t) + 1]/lambda_max) ==1){
         #storing the arrivals for each hour in a vector of hourly arrivals
         arrivals <- c(arrivals, t)
       }
     }
-   
+    
     if (!is.null(arrivals)){
       arrival_df <- data.frame(
         hour = floor(arrivals),
@@ -72,8 +72,10 @@ for (i in 1:nrow(df_station_pair)) {
         end_station = end)
       
       full_arrivals <- rbind(full_arrivals, arrival_df)
+      full_arrivals <- full_arrivals %>%
+        arrange(time)
     }
-  
+    
   }
   return(full_arrivals)
   
@@ -81,12 +83,12 @@ for (i in 1:nrow(df_station_pair)) {
 
 
 #test_data <- data.frame(hour = c(1, 2, 3, 0, 1, 2, 3), 
- #                       x_hat = c(1, 2, 0, 2, 3, 1, 2),
-  #                      start_station = c("A", "A","A", "B", "B", "B", "B"),
-   #                     end_station = c("B", "B", "B", "A", "A", "A","A")) %>%
- # mutate(hour = factor(hour, levels = c(0:3))) %>%
-  #group_by(start_station, end_station) %>%
-  #complete(hour, fill = list(x_hat = 0))
+#                       x_hat = c(1, 2, 0, 2, 3, 1, 2),
+#                      start_station = c("A", "A","A", "B", "B", "B", "B"),
+#                     end_station = c("B", "B", "B", "A", "A", "A","A")) %>%
+# mutate(hour = factor(hour, levels = c(0:3))) %>%
+#group_by(start_station, end_station) %>%
+#complete(hour, fill = list(x_hat = 0))
 
 
 #simulate_one_day(arrival_rates_result)

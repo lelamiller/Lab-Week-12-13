@@ -25,7 +25,7 @@ optimize_bike_placement <- function(arrival_rates_result,
     total_unhappy <- setNames(rep(0, length(stations)), stations)
     
     # simulate several days
-    for (d in 1:10) {
+    for (d in 1:ndays) {
       sim <- simulate_one_day(arrival_rates_result) 
       
       # count arrivals per station
@@ -54,6 +54,10 @@ optimize_bike_placement <- function(arrival_rates_result,
   
 
   for (i in 1:fleet_size) {
+    #maybe place 5 bikes at a time
+    #output for simulate one day, add column 
+    #order of trips matter, need to go through for each trip in data, is there a bike at station
+      #need to move bikes from one station to another when a trip occurs
     
     # compute who is most unhappy right now
     unhappy <- compute_unhappy(allocation)
