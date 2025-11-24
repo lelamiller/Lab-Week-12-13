@@ -73,12 +73,9 @@ simulate_one_day <- function(arrival_rates_result){
         end_station = end)
       
       full_arrivals <- rbind(full_arrivals, arrival_df)
-<<<<<<< HEAD
+
       full_arrivals <- full_arrivals %>%
         arrange(time)
-=======
-      full_arrivals <- full_arrivals[order(full_arrivals$time), ]
->>>>>>> 0ca336a35d2e0ca451ed646a2be1234f054d94b1
     }
     
   }
