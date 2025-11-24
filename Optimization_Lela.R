@@ -5,7 +5,8 @@
 #' @return data frame of a simulated day: origin, destination, hour
 library(tidyverse)
 
-arrival_rates_result <- read.csv("/Users/lelamiller/arrival_rates_result.csv")
+# arrival_rates_result <- read.csv("/Users/lelamiller/arrival_rates_result.csv")
+arrival_rates_result <- read.csv("~/Desktop/PHP1560/arrival_rates_result.csv")
 
 optimize_bike_placement <- function(arrival_rates_result,
                                     fleet_size,

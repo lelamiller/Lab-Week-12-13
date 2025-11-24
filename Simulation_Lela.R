@@ -5,7 +5,8 @@
 library(tidyverse)
 
 #read in the arrival rates data
-arrival_rates_result <- read.csv("/Users/lelamiller/arrival_rates_result.csv")
+# arrival_rates_result <- read.csv("/Users/lelamiller/arrival_rates_result.csv")
+arrival_rates_result <- read.csv("~/Desktop/PHP1560/arrival_rates_result.csv")
 
 #START THE FUNCTION!!!
 simulate_one_day <- function(arrival_rates_result){
@@ -72,8 +73,12 @@ simulate_one_day <- function(arrival_rates_result){
         end_station = end)
       
       full_arrivals <- rbind(full_arrivals, arrival_df)
+<<<<<<< HEAD
       full_arrivals <- full_arrivals %>%
         arrange(time)
+=======
+      full_arrivals <- full_arrivals[order(full_arrivals$time), ]
+>>>>>>> 0ca336a35d2e0ca451ed646a2be1234f054d94b1
     }
     
   }
