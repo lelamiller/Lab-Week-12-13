@@ -10,9 +10,9 @@ arrival_rates_result <- read.csv("/Users/lelamiller/arrival_rates_result.csv")
 optimize_bike_placement <- function(arrival_rates_result,
                                     fleet_size,
                                     n_days = 10,
-                                    seed = NULL) {
+                                    seed = 123) {
   
-  if (!is.null(seed)) set.seed(seed)
+  set.seed(seed)
   
   # Get all stations appearing anywhere in dataset
   stations <- sort(unique(c(arrival_rates_result$start_station)))
