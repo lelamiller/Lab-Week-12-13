@@ -7,13 +7,13 @@ library(tidyverse)
 #read in the arrival rates data
 arrival_rates_result <- read.csv("/Users/lelamiller/arrival_rates_result.csv")
 
-arrival_rates_result <- arrival_rates_result %>%
-  mutate(hour = factor(hour, levels = c(0:23))) %>%
-  group_by(start_station, end_station) %>%
-  complete(hour, fill = list(x_hat = 0)) 
-
 #START THE FUNCTION!!!
 simulate_one_day <- function(arrival_rates_result){
+  
+  arrival_rates_result <- arrival_rates_result %>%
+    mutate(hour = factor(hour, levels = c(0:23))) %>%
+    group_by(start_station, end_station) %>%
+    complete(hour, fill = list(x_hat = 0)) 
   
   #identify the unique pairs of stations
   df_station_pair <- arrival_rates_result %>%
