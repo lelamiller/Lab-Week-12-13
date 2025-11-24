@@ -12,7 +12,7 @@ optimize_bike_placement <- function(arrival_rates_result,
                                     n_days = 10,
                                     seed = 123) {
   
-  set.seed(seed)
+  set.seed(123)
   
   # Get all stations appearing anywhere in dataset
   stations <- sort(unique(c(arrival_rates_result$start_station)))
@@ -25,7 +25,7 @@ optimize_bike_placement <- function(arrival_rates_result,
     total_unhappy <- setNames(rep(0, length(stations)), stations)
     
     # simulate several days
-    for (d in 1:n_days) {
+    for (d in 1:10) {
       sim <- simulate_one_day(arrival_rates_result) 
       
       # count arrivals per station

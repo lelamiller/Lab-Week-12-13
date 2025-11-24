@@ -63,7 +63,7 @@ for (i in 1:nrow(df_station_pair)) {
         arrivals <- c(arrivals, t)
       }
     }
-    print(arrivals) #PRINTING THIS SHOWS NULL, BUT WHEN I RUN IT ONE BY ONE IN THE LOOP IT WORKS?
+   
     if (!is.null(arrivals)){
       arrival_df <- data.frame(
         hour = floor(arrivals),
@@ -79,13 +79,14 @@ for (i in 1:nrow(df_station_pair)) {
   
 }
 
-test_data <- data.frame(hour = c(1, 2, 3, 0, 1, 2, 3), 
-                        x_hat = c(1, 2, 0, 2, 3, 1, 2),
-                        start_station = c("A", "A","A", "B", "B", "B", "B"),
-                        end_station = c("B", "B", "B", "A", "A", "A","A")) %>%
-  mutate(hour = factor(hour, levels = c(0:3))) %>%
-  group_by(start_station, end_station) %>%
-  complete(hour, fill = list(x_hat = 0))
+
+#test_data <- data.frame(hour = c(1, 2, 3, 0, 1, 2, 3), 
+ #                       x_hat = c(1, 2, 0, 2, 3, 1, 2),
+  #                      start_station = c("A", "A","A", "B", "B", "B", "B"),
+   #                     end_station = c("B", "B", "B", "A", "A", "A","A")) %>%
+ # mutate(hour = factor(hour, levels = c(0:3))) %>%
+  #group_by(start_station, end_station) %>%
+  #complete(hour, fill = list(x_hat = 0))
 
 
-simulate_one_day(arrival_rates_result)
+#simulate_one_day(arrival_rates_result)
