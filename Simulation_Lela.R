@@ -5,6 +5,7 @@
 library(tidyverse)
 
 #read in the arrival rates data
+# arrival_rates_result <- read.csv("/Users/lelamiller/arrival_rates_result.csv")
 arrival_rates_result <- read.csv("~/Desktop/PHP1560/arrival_rates_result.csv")
 
 #START THE FUNCTION!!!
