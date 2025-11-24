@@ -44,7 +44,7 @@ simulate_one_day <- function(arrival_rates_result){
     lambda_max <- max(lambdas)
     
     
-    
+  
     #initialize the time  
     t <- 0
     arrivals <- c()
