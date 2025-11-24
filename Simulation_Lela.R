@@ -5,7 +5,7 @@
 library(tidyverse)
 
 #read in the arrival rates data
-arrival_rates_result <- read.csv("/Users/lelamiller/arrival_rates_result.csv")
+arrival_rates_result <- read.csv("~/Desktop/PHP1560/arrival_rates_result.csv")
 
 #START THE FUNCTION!!!
 simulate_one_day <- function(arrival_rates_result){
@@ -58,7 +58,7 @@ for (i in 1:nrow(df_station_pair)) {
       
       #ADD IN THINNING?
       
-      if(rbinom(1, 1, lambdas[hour +1]/lambda_max) ==1){
+      if(rbinom(1, 1, lambdas[floor(t) + 1]/lambda_max) ==1){
         #storing the arrivals for each hour in a vector of hourly arrivals
         arrivals <- c(arrivals, t)
       }
@@ -72,6 +72,7 @@ for (i in 1:nrow(df_station_pair)) {
         end_station = end)
       
       full_arrivals <- rbind(full_arrivals, arrival_df)
+      full_arrivals <- full_arrivals[order(full_arrivals$time), ]
     }
   
   }
