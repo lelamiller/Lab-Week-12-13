@@ -31,8 +31,8 @@ simulate_one_day <- function(arrival_rates_result){
 for (i in 1:nrow(df_station_pair)) {
     
     #find lambda max for the unique station pair   
-    start <- df_station_pair$start_station[nrow(df_station_pair)]
-    end <- df_station_pair$end_station[nrow(df_station_pair)]
+    start <- df_station_pair$start_station[i]
+    end <- df_station_pair$end_station[i]
     
     lambdas <- arrival_rates_result %>%
       arrange(hour) %>%
@@ -50,9 +50,9 @@ for (i in 1:nrow(df_station_pair)) {
     hourvector <- c()
     
     #start a while loop for t, our total time, making sure it is always less than 24
-    while(t<=23){
+    while(t<24){
       t <- t + rexp(1, rate = lambda_max)
-      if (t >23) break
+      if (t >=24) break
       
       hourvector <- c(hourvector, floor(t))
       
@@ -64,13 +64,16 @@ for (i in 1:nrow(df_station_pair)) {
       }
     }
     print(arrivals) #PRINTING THIS SHOWS NULL, BUT WHEN I RUN IT ONE BY ONE IN THE LOOP IT WORKS?
-    arrival_df <- data.frame(
-      hour = floor(arrivals),
-      time = arrivals,
-      start_station = start,
-      end_station = end)
-    
-    full_arrivals <- rbind(full_arrivals, arrival_df)
+    if (!is.null(arrivals)){
+      arrival_df <- data.frame(
+        hour = floor(arrivals),
+        time = arrivals,
+        start_station = start,
+        end_station = end)
+      
+      full_arrivals <- rbind(full_arrivals, arrival_df)
+    }
+  
   }
   return(full_arrivals)
   

@@ -58,14 +58,14 @@ optimize_bike_placement <- function(arrival_rates_result,
     # compute who is most unhappy right now
     unhappy <- compute_unhappy(allocation)
     
-    # pick station with MAX unhappy customers
+    # pick station with the maximum unhappy customers
     chosen_station <- names(which.max(unhappy))
     
     # place ONE bike there
     allocation[chosen_station] <- allocation[chosen_station] + 1
   }
   
-  # Return a dataframe
+
   return(data.frame(
     station = stations,
     recommended_bikes = as.numeric(allocation)
