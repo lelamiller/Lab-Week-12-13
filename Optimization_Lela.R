@@ -59,6 +59,11 @@ optimize_bike_placement <- function(arrival_rates_result,
     #output for simulate one day, add column 
     #order of trips matter, need to go through for each trip in data, is there a bike at station
       #need to move bikes from one station to another when a trip occurs
+    #account for bikes added to a station by trips from A to B
+    
+    #if you iterate through the simulated data, if there is some way of storing 
+    #in that dataframe itself or a seperate dataframe or vector, to say this is 
+    #the number of bikes at teach station, as you go through the row, if someone goes to A 
     
     # compute who is most unhappy right now
     unhappy <- compute_unhappy(allocation)
