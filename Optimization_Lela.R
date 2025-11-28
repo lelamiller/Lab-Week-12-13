@@ -5,8 +5,8 @@
 #' @return data frame of a simulated day: origin, destination, hour
 library(tidyverse)
 
-# arrival_rates_result <- read.csv("/Users/lelamiller/arrival_rates_result.csv")
-arrival_rates_result <- read.csv("~/Desktop/PHP1560/arrival_rates_result.csv")
+arrival_rates_result <- read.csv("/Users/lelamiller/arrival_rates_result.csv")
+#arrival_rates_result <- read.csv("~/Desktop/PHP1560/arrival_rates_result.csv")
 
 optimize_bike_placement <- function(arrival_rates_result,
                                     fleet_size,
@@ -26,53 +26,52 @@ optimize_bike_placement <- function(arrival_rates_result,
     total_unhappy <- setNames(rep(0, length(stations)), stations)
     
     # simulate several days
-    for (d in 1:ndays) {
+    for (d in 1:n_days) {
       sim <- simulate_one_day(arrival_rates_result) 
+     
+    # arrange by time so that our bikes move correctly
+      sim <- sim %>% arrange(time)
       
-      # count arrivals per station
-      arrivals <- sim %>%
-        group_by(start_station) %>%
-        summarize(n_arrivals = n(), .groups = "drop")
+    #initialize the bike inventory
+      bikes <- allocation
+      names(bikes) <- stations 
       
-      # join with stations (to fill in zeros)
-      arrivals <- full_join(
-        arrivals,
-        data.frame(start_station = stations),
-        by = "start_station"
-      ) %>%
-        mutate(n_arrivals = ifelse(is.na(n_arrivals), 0, n_arrivals))
+    #create a loop that goes through all trips in the simulated data
+    for (i in 1:nrow(sim)) {
+      origin <- sim$start_station[i]
+      dest <- sim$end_station[i]
       
-      # unhappy = arrivals > bikes currently assigned
-      for (s in stations) {
-        a <- arrivals$n_arrivals[arrivals$start_station == s]
-        b <- allocation[s]
-        total_unhappy[s] <- total_unhappy[s] + max(a - b, 0)
+      #if we have a bike at the origin station, our rider is happy, and therefore the bike moves from a to b
+      if(bikes[origin] > 0) {
+        bikes[origin] <- bikes[origin] - 1
+        bikes[dest] <- bikes[dest] + 1
+      } else {
+        #if there is no bike available, we have an unhappy rider at the origin, add it to the total unhappy count
+        total_unhappy[origin] <- total_unhappy[origin] + 1
       }
     }
-    
+ 
+    }
     return(total_unhappy)
-  }
+    }
+   
   
+#now we do a loop to place 5 bikes at a time 
+#initialize the bikes remaining to be the total amount of bikes
+bikes_remaining <- fleet_size 
 
-  for (i in 1:fleet_size) {
-    #maybe place 5 bikes at a time
-    #output for simulate one day, add column 
-    #order of trips matter, need to go through for each trip in data, is there a bike at station
-      #need to move bikes from one station to another when a trip occurs
-    #account for bikes added to a station by trips from A to B
-    
-    #if you iterate through the simulated data, if there is some way of storing 
-    #in that dataframe itself or a seperate dataframe or vector, to say this is 
-    #the number of bikes at teach station, as you go through the row, if someone goes to A 
-    
-    # compute who is most unhappy right now
+  while (bikes_remaining > 0) {
+    # who is unhappy with the current allocation
     unhappy <- compute_unhappy(allocation)
     
     # pick station with the maximum unhappy customers
     chosen_station <- names(which.max(unhappy))
     
-    # place ONE bike there
-    allocation[chosen_station] <- allocation[chosen_station] + 1
+    # place up to 5 bikes or whatever is left
+    add <- min(5, bikes_remaining)
+    allocation[chosen_station] <- allocation[chosen_station] + add
+    bikes_remaining <- bikes_remaining - add
+    allocation[chosen_station] <- allocation[chosen_station] + 5
   }
   
 
