@@ -1,6 +1,6 @@
 #' @description optimizes bike placement for most riders to have a bike for their desired rides
 #' @param arrival_rates_result data frame with the start station, end station, hour and average rate of arrival for each trip across all days. 
-#' @param nbikes number of bikes to begin with
+#' @param fleet_size number of bikes to begin with
 #' @param seed for reproducibility
 #' @return data frame of a simulated day: origin, destination, hour
 library(tidyverse)
