@@ -38,8 +38,8 @@ optimize_bike_placement <- function(arrival_rates_result,
       
     #create a loop that goes through all trips in the simulated data
     for (i in 1:nrow(sim)) {
-      origin <- sim$start_station[i]
-      dest <- sim$end_station[i]
+      origin <- as.character(sim$start_station[1])
+      dest   <- as.character(sim$end_station[1])
       
       #if we have a bike at the origin station, our rider is happy, and therefore the bike moves from a to b
       if(bikes[origin] > 0) {
@@ -82,6 +82,6 @@ bikes_remaining <- fleet_size
 }
 
 optimize_bike_placement(arrival_rates_result,
-                        100,
-                        n_days = 10,
+                        40,
+                        n_days = 4,
                         seed = 1)
