@@ -25,18 +25,20 @@ The data we used is from CitiBike, and includes the start station, end station, 
 Our code relies on the library "tidyverse."
 
 ### Dataframes
-Our arrival rates function produces a csv called "arrival_rates_result.csv." This dataset includes start_station, end_station, hour, and x-hat. x-hat is the average number of trips per day in that hour for that station pair. To replicate our findings, this dataset can be used rather than re-running the arrival rates function. If new sample data should be used, rerun arrival rates and use the resulting new dataframe. 
+Our arrival rates function produces a csv called "arrival_rates_result.csv." This dataset includes start_station, end_station, hour, and x-hat. x-hat is the average number of trips per day for each hour-station pair. To replicate our findings, this dataset can be used rather than re-running the arrival rates function. If new sample data should be used, rerun arrival rates and use the resulting new dataframe. 
 
 ## Arrival Rates Function
 Function: arrival_rates()
+
 Input: "sample_bike.csv." 
 
-This function extracts the hour and day of each trip, excludes entries with missing customer types, groups by the start and end station pair and the hour of the day, and then returns the average number of bikes used between each pair each hour. 
+This function extracts the hour and day of each trip, excludes entries with missing customer types, groups by the start and end station pair and the hour of the day, and then returns x_hat. 
 
 Output: a csv, which we have uploaded and named "arrival_rates_result.csv." 
 
 ## Simulation Function
 Function: simulate_one_day()
+
 Input: "arrival_rates_result.csv" 
 
 The function simulates a single day of trips using bikeshare. It starts by identifying unique station pairs, and then looping through those pairs to identify the average number of trips from one station to another per hour. It also identifies the highest average per pair. While our time is less than 24 hours (as in, while we are still within the bounds of one simulated day), we thin our results (since our initial set of arrivals overestimates bikeshare usage) and store each arrival in a dataframe. Then, the function orders our trips by time, from the first trip of the day to the last. 
@@ -45,6 +47,7 @@ Output: a dataframe of simulated trips with start station, end station, hour, an
 
 ## Optimization Function
 Function: optimize_bike_placement()
+
 Input: 
 - "arrival_rates_result.csv"
 - fleet_size (as in, the number of total bikes you have avaialble in your bikeshare system)
