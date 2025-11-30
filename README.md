@@ -13,6 +13,7 @@ redistribute bikes in order to maximize user satisfaction.
 
 ## Table of Contents
 - [Data and Downloads](#Data-and-Downloads)
+- [Function Diagram](#Function-Diagram)
 - [Arrival Rates Function](#Arrival-Rates-Function)
 - [Simulation Function](#Simulation-Function)
 - [Optimization Function](#Optimization-Function)
@@ -26,6 +27,19 @@ Our code relies on the library "tidyverse."
 
 ### Dataframes
 Our arrival rates function produces a csv called "arrival_rates_result.csv." This dataset includes start_station, end_station, hour, and x-hat. x-hat is the average number of trips per day for each hour-station pair. To replicate our findings, this dataset can be used rather than re-running the arrival rates function. If new sample data should be used, rerun arrival rates and use the resulting new dataframe. 
+
+## Function Diagram
+```mermaid
+graph TD;
+    sample_bikes["sample_bikes.csv"] --> arrival_rates;
+    arrival_rates --> arrival_rates_result["arrival_rates_result.csv"];
+    arrival_rates_result --> simulate_one_day;
+    simulate_one_day --> optimize_bike_placement;
+    arrival_rates_result --> optimize_bike_placement;
+    optimize_bike_placement --> simulate_one_day;
+    optimize_bike_placement --> table_recommended["table of recommended bikes per station"];
+
+```
 
 ## Arrival Rates Function
 Function: arrival_rates()
