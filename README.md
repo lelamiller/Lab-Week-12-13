@@ -18,7 +18,9 @@ redistribute bikes in order to maximize user satisfaction.
 
 ## Data and Downloads
 ### Dataset
-Our data is 
+The data we used is from CitiBike, and includes the start station, end station, start time, end time, and user type for customers on one day. The dataset is called 
+
+
 ## Arrival Rates Function
 
 ## Simulation Function
