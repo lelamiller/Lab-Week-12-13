@@ -42,6 +42,8 @@ graph TD;
 ```
 
 ## Arrival Rates Function
+Housed in the file: arrival_rates.R
+
 Function: arrival_rates()
 
 Input: "sample_bike.csv." 
@@ -51,6 +53,8 @@ This function extracts the hour and day of each trip, excludes entries with miss
 Output: a csv, which we have uploaded and named "arrival_rates_result.csv." 
 
 ## Simulation Function
+Housed in the file: Simulation_Lela.R
+
 Function: simulate_one_day()
 
 Input: "arrival_rates_result.csv" 
@@ -60,6 +64,8 @@ The function simulates a single day of trips using bikeshare. It starts by ident
 Output: a dataframe of simulated trips with start station, end station, hour, and time organized by time. 
 
 ## Optimization Function
+Housed in the file: Optimization_Lela.R
+
 Function: optimize_bike_placement()
 
 Input: 
