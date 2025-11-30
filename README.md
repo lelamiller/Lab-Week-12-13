@@ -16,7 +16,6 @@ redistribute bikes in order to maximize user satisfaction.
 - [Arrival Rates Function](#Arrival-Rates-Function)
 - [Simulation Function](#Simulation-Function)
 - [Optimization Function](#Optimization-Function)
-- [Output Information](#Output-Information)
 
 ## Data and Downloads
 ### Dataset
