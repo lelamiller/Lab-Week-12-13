@@ -17,6 +17,7 @@ redistribute bikes in order to maximize user satisfaction.
 - [Arrival Rates Function](#Arrival-Rates-Function)
 - [Simulation Function](#Simulation-Function)
 - [Optimization Function](#Optimization-Function)
+- [Example Results](#Example-Results)
 
 ## Data and Downloads
 ### Dataset
@@ -79,3 +80,9 @@ Goal: allocate our fleet across stations so that the number of riders who are un
 First, we initilaize all stations to have no bikes. Then, we simulate n_days of usage by calling upon our function simulate_one_day(). We identify the station with the highest count of unhappy riders --- those who arrived and could not get a bike --- and allocate 5 bikes to that station. We repeat this procees until all our bikes are allocated. 
 
 Output: a table of reccomended bikes per station
+
+## Example Results 
+To view the results of three optimization examples, click the "results" folder. 
+- For a fleet size of 200 bikes tested over 4 simulated days, view the table "fleet_size_200.csv" or plot "fleet_size_200.png"
+- For a fleet size of 100 bikes tested over 7 simulated days, view the table "fleet_size_100.csv" or plot "fleet_size_100.png"
+- For a fleet size of 50 bikes tested over 5 simulated days, view the table "fleet_size_50.csv" or plot "fleet_size_50.png"
