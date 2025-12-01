@@ -5,11 +5,11 @@
 #' @return data frame of a simulated day: origin, destination, hour
 library(tidyverse)
 
-arrival_rates_result <- read.csv("/Users/lelamiller/arrival_rates_result.csv")
-#arrival_rates_result <- read.csv("~/Desktop/PHP1560/arrival_rates_result.csv")
+#arrival_rates_result <- read.csv("/Users/lelamiller/arrival_rates_result.csv")
+arrival_rates_result <- read.csv("~/Desktop/PHP1560/arrival_rates_result.csv")
 
 optimize_bike_placement <- function(arrival_rates_result,
-                                    fleet_size,
+                                    fleet_size = 200,
                                     n_days = 10,
                                     seed = 123) {
   
@@ -38,8 +38,8 @@ optimize_bike_placement <- function(arrival_rates_result,
       
     #create a loop that goes through all trips in the simulated data
     for (i in 1:nrow(sim)) {
-      origin <- as.character(sim$start_station[1])
-      dest   <- as.character(sim$end_station[1])
+      origin <- as.character(sim$start_station[i])
+      dest   <- as.character(sim$end_station[i])
       
       #if we have a bike at the origin station, our rider is happy, and therefore the bike moves from a to b
       if(bikes[origin] > 0) {
@@ -71,7 +71,6 @@ bikes_remaining <- fleet_size
     add <- min(5, bikes_remaining)
     allocation[chosen_station] <- allocation[chosen_station] + add
     bikes_remaining <- bikes_remaining - add
-    allocation[chosen_station] <- allocation[chosen_station] + 5
   }
   
 

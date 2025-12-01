@@ -5,8 +5,8 @@
 library(tidyverse)
 
 #read in the arrival rates data
-arrival_rates_result <- read.csv("/Users/lelamiller/arrival_rates_result.csv")
-#arrival_rates_result <- read.csv("~/Desktop/PHP1560/arrival_rates_result.csv")
+#arrival_rates_result <- read.csv("/Users/lelamiller/arrival_rates_result.csv")
+arrival_rates_result <- read.csv("~/Desktop/PHP1560/arrival_rates_result.csv")
 
 #START THE FUNCTION!!!
 simulate_one_day <- function(arrival_rates_result){
@@ -83,14 +83,3 @@ simulate_one_day <- function(arrival_rates_result){
   
 }
 
-
-#test_data <- data.frame(hour = c(1, 2, 3, 0, 1, 2, 3), 
-#                       x_hat = c(1, 2, 0, 2, 3, 1, 2),
-#                      start_station = c("A", "A","A", "B", "B", "B", "B"),
-#                     end_station = c("B", "B", "B", "A", "A", "A","A")) %>%
-# mutate(hour = factor(hour, levels = c(0:3))) %>%
-#group_by(start_station, end_station) %>%
-#complete(hour, fill = list(x_hat = 0))
-
-
-#simulate_one_day(arrival_rates_result)
