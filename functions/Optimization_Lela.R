@@ -36,7 +36,7 @@ optimize_bike_placement <- function(arrival_rates_result,
       bikes <- allocation
       names(bikes) <- stations 
       
-    #create a loop that goes through all trips in the simulated data
+    #create a loop that goes through all trips in the simulated data, moving bikes when trips occur
     for (i in 1:nrow(sim)) {
       origin <- as.character(sim$start_station[i])
       dest   <- as.character(sim$end_station[i])
