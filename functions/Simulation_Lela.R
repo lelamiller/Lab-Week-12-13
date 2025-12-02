@@ -21,6 +21,7 @@ simulate_one_day <- function(arrival_rates_result){
     group_by(start_station, end_station) %>%
     summarize()
   
+  #create an empty dataframe to store our final results
   full_arrivals <- data.frame( hour = vector("numeric"), 
                                time = vector("numeric"), 
                                start_station = vector("character"),
